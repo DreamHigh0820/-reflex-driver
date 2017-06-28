@@ -1,74 +1,76 @@
 /* @flow */
 
-export type Address<message> = (msg: message) => void
+export const ELEMENT_NODE = 1
+export const TEXT_NODE = 3
+export const DOCUMENT_FRAGMENT_NODE = 11
 
-export type AttributeDictionary = {
+export type Attributes = {
   [string]: null | string | number | boolean
 }
 
-export type StyleDictionary = {
+export type Style = {
   [string]: null | string | number | boolean
 }
 
-export type PropertyDictionary = {
-  attributes?: AttributeDictionary,
-  style?: StyleDictionary,
+export type Properties = {
+  attributes?: Attributes,
+  style?: Style,
   key?: string,
   value?: mixed,
   [string]: mixed
 }
 
-export interface VirtualText {
-  $type: "VirtualText",
+export interface TextNode {
+  nodeType: typeof TEXT_NODE,
   text: string
 }
 
-export interface VirtualNode {
-  $type: "VirtualNode",
-  key: ?string,
+export interface ElementNode {
+  nodeType: typeof ELEMENT_NODE,
+  namespaceURI: ?string,
   tagName: string,
-  namespace: ?string,
-  children: Array<VirtualTree>
+  key: ?string,
+  children: Array<Node>
 }
 
-export interface Thunk {
+export interface ThunkNode {
   $type: "Thunk",
   key: string
 }
 
-export interface Widget {
+export interface WidgetNode {
   $type: "Widget",
   initialize(): Element,
-  update(previous: Widget, node: Element): ?Element,
+  update(previous: WidgetNode, target: Element): ?Element,
   destroy(node: Element): void
 }
 
-export interface LazyTree<Tree> {
-  $type: "LazyTree",
-  force(): Tree
-}
-
-export type VirtualTree = string | VirtualText | VirtualNode | Thunk | Widget
-
-export type DOM = VirtualTree
+export type Node = string | TextNode | ElementNode | ThunkNode | WidgetNode
 
 // Root node is a lazy (uncomputed & unrendered) representation of the
 // application view that can be rendered with reflex renderer by calling
 // `renderWith` method.
-export interface VirtualRoot {
-  $type: "VirtualRoot",
-  renderWith(driver: Driver): DOM
+export interface DocumentFragmentNode {
+  nodeType: typeof DOCUMENT_FRAGMENT_NODE,
+  renderWith(driver: Driver): Node
 }
 
-export type text = (content: string) => VirtualText
+export type CreateTextNode = (content: string) => Text
 
-export type node = (
+export type CreateElement = (
   tagName: string,
-  properties: ?PropertyDictionary,
-  children: ?Array<VirtualTree>
-) => VirtualNode
+  properties: ?Properties,
+  children: ?Array<Node>
+) => ElementNode
 
-export type thunk = <a, b, c, d, e, f, g, h, i, j>(
+export type CreateElementNS = (
+  namespaceURI: string,
+  tagName: string,
+  properties: ?Properties,
+  children: ?Array<Node>
+) => ElementNode
+
+export type CreateThunkNode = <a, b, c, d, e, f, g, h, i, j>(
   key: string,
   view: (
     a0: a,
@@ -81,7 +83,7 @@ export type thunk = <a, b, c, d, e, f, g, h, i, j>(
     a7: h,
     a8: i,
     a9: j
-  ) => VirtualTree,
+  ) => Node,
   a0: a,
   a1: b,
   a2: c,
@@ -92,11 +94,12 @@ export type thunk = <a, b, c, d, e, f, g, h, i, j>(
   a7: h,
   a8: i,
   a9: j
-) => Thunk
+) => ThunkNode
 
 export interface Driver {
-  text: text,
-  node: node,
-  thunk: thunk,
-  render(root: VirtualRoot): void
+  createTextNode: CreateTextNode,
+  createElement: CreateElement,
+  createElementNS: CreateElementNS,
+  createThunkNode: CreateThunkNode,
+  render(node: ThunkNode): void
 }

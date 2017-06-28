@@ -1,26 +1,21 @@
 {
-  "name": "reflex",
+  "name": "reflex-driver",
   "version": "1.0.0",
-  "description": "Functional reactive UI library",
-  "keywords": [
-    "reflex",
-    "reactive",
-    "functional",
-    "UI"
-  ],
+  "description": "Interface for implementing reflex drivers",
+  "keywords": ["reflex", "reactive", "functional", "UI", "driver"],
   "author": "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)",
-  "main": "reflex",
+  "main": "driver",
   "devDependencies": {
     "babel-cli": "6.24.1",
     "babel-preset-flow-node": "^1.0.2",
     "babel-register": "6.24.1",
     "blue-tape": "^1.0.0",
+    "documentation": "^4.0.0-rc.1",
     "flow-bin": "0.48.0",
-    "flow-copy-source": "1.1.0",
+    "flow-copy-source": "^1.2.0",
     "husky": "^0.14.0",
     "lint-staged": "^4.0.0",
-    "prettier": "^1.4.4",
-    "documentation": "^4.0.0-rc.1"
+    "prettier": "^1.5.2"
   },
   "scripts": {
     "test": "npm run test:flow && npm run test:tape",
@@ -36,10 +31,7 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --parser flow --no-semi --write",
-      "git add"
-    ]
+    "*.js": ["prettier --parser flow --no-semi --write", "git add"]
   },
   "repository": "https://github.com/mozilla/reflex",
   "license": "MIT"
