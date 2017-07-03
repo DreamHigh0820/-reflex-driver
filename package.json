@@ -1,6 +1,6 @@
 {
   "name": "reflex-driver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Interface for implementing reflex drivers",
   "keywords": ["reflex", "reactive", "functional", "UI", "driver"],
   "author": "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)",
