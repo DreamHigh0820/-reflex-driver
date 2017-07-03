@@ -33,6 +33,6 @@
   "lint-staged": {
     "*.js": ["prettier --parser flow --no-semi --write", "git add"]
   },
-  "repository": "https://github.com/mozilla/reflex",
+  "repository": "https://github.com/reflex",
   "license": "MIT"
 }
