@@ -1,6 +1,6 @@
 {
   "name": "reflex-driver",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Interface for implementing reflex drivers",
   "keywords": ["reflex", "reactive", "functional", "UI", "driver"],
   "author": "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)",
@@ -33,6 +33,6 @@
   "lint-staged": {
     "*.js": ["prettier --parser flow --no-semi --write", "git add"]
   },
-  "repository": "https://github.com/reflex",
+  "repository": "https://github.com/Gozala/reflex-driver",
   "license": "MIT"
 }
